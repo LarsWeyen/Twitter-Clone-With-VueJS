@@ -15,7 +15,7 @@
             <span>·</span>
           </div>
           <div class="post-date">
-            <span>37 m</span>
+            <span>{{ postedTime }}</span>
           </div>
         </div>
         <div class="post-sub">
@@ -30,19 +30,19 @@
               <div class="button-icon post-comments">
                 <uil-comment size="19px"/>
               </div>
-              <span>{{post.commentCount}}</span>
+              <span>{{ post.commentCount }}</span>
             </div>
             <div class="post-button">
               <div class="button-icon post-retweets">
                 <uil-repeat size="19px"/>
               </div>
-              <span>{{post.retweetCount}}</span>
+              <span>{{ post.retweetCount }}</span>
             </div>
             <div class="post-button">
               <div class="button-icon post-likes">
                 <uil-heart-alt size="19px"/>
               </div>
-              <span>{{post.likeCount}}</span>
+              <span>{{ post.likeCount }}</span>
             </div>
             <div class="post-button">
               <div class="button-icon post-share">
@@ -57,10 +57,7 @@
 </template>
 
 <script>
-import {UilComment} from '@iconscout/vue-unicons'
-import {UilRepeat} from '@iconscout/vue-unicons'
-import {UilHeartAlt} from '@iconscout/vue-unicons'
-import {UilUpload} from '@iconscout/vue-unicons'
+import {UilComment, UilHeartAlt, UilRepeat, UilUpload} from '@iconscout/vue-unicons'
 
 export default {
   name: "PostCom",
@@ -68,6 +65,32 @@ export default {
     post: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    postedTime() {
+      let seconds = Math.floor((new Date() - new Date(this.post.date)) / 1000);
+      let interval = seconds / 31536000;
+      if (interval > 1) {
+        return new Date(this.post.date).toString().split(' ').slice(1, 4).join(' ');
+      }
+      interval = seconds / 2592000;
+      if (interval > 1) {
+        return new Date(this.post.date).toString().split(' ').slice(1, 4).join('-');
+      }
+      interval = seconds / 86400;
+      if (interval > 1) {
+        return Math.floor(interval) + " d";
+      }
+      interval = seconds / 3600;
+      if (interval > 1) {
+        return Math.floor(interval) + " h";
+      }
+      interval = seconds / 60;
+      if (interval > 1) {
+        return Math.floor(interval) + " m";
+      }
+      return Math.floor(seconds) + " s";
     }
   },
   components: {
@@ -152,13 +175,16 @@ article {
   background-color: rgba(29, 155, 240, 0.1);
   color: rgb(29, 155, 240);
 }
+
 .post-comments:hover + span {
   color: rgb(29, 155, 240);
 }
+
 .post-retweets:hover {
   background-color: rgba(0, 186, 124, 0.1);
   color: rgb(0, 186, 124);
 }
+
 .post-retweets:hover + span {
   color: rgb(0, 186, 124);
 }

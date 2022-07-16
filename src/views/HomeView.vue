@@ -35,7 +35,7 @@
                 <uil-calender size="20px"/>
               </div>
             </div>
-            <div class="tweet-button">
+            <div @click="postTweet" class="tweet-button">
               <div><span>Tweet</span></div>
             </div>
           </div>
@@ -67,7 +67,7 @@ export default {
           id:1,
           text:'Lets go first post!',
           image:'https://www.kaas.nl/wp-content/uploads/2020/03/133035_Maasdam.png',
-          date:null,
+          date: new Date().setHours(new Date().getHours() -5),
           commentCount:5,
           likeCount:3,
           retweetCount:7
@@ -76,13 +76,21 @@ export default {
           id:2,
           text:'woep woep ez clap',
           image:null,
-          date: Date.now(),
+          date: new Date().setMonth(new Date().getMonth() -2),
           commentCount:1,
           likeCount:7,
           retweetCount:2
         }
       ]
     }
+  },
+  methods:{
+    postTweet(){
+      this.posts.push({text:this.postText,date: new Date()})
+    }
+  },
+  created() {
+console.log(new Date(1652725911255))
   },
   components: {
     UilScenery, UilCameraPlus, UilAnalytics, UilSmile, UilCalender,PostCom
