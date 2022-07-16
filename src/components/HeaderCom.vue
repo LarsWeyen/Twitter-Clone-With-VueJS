@@ -3,7 +3,7 @@
     <div>
       <div class="logo-container">
         <router-link to="/home">
-          <UilTwitter to="/home" size="34px" class="logo"/>
+          <UilTwitter to="/home" size="28px" class="logo"/>
         </router-link>
       </div>
       <nav>
@@ -120,7 +120,7 @@ a {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 9999px;
+  border-radius: 50%;
 }
 
 .logo-container {

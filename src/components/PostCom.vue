@@ -1,0 +1,200 @@
+<template>
+  <div class="post">
+    <article>
+      <div class="user-picture-container">
+        <div class="user-picture">
+          <img src="../assets/oksCHBlQ_400x400.jpg"/>
+        </div>
+      </div>
+      <div class="post-rightside">
+        <div class="post-header">
+          <div class="post-username">
+            <span>Username</span>
+          </div>
+          <div class="between">
+            <span>·</span>
+          </div>
+          <div class="post-date">
+            <span>37 m</span>
+          </div>
+        </div>
+        <div class="post-sub">
+          <div class="post-text">
+            <span>{{ post.text }}</span>
+          </div>
+          <div class="post-image">
+            <img v-if="post.image" :src="post.image" alt="">
+          </div>
+          <div class="post-buttons">
+            <div class="post-button">
+              <div class="button-icon post-comments">
+                <uil-comment size="19px"/>
+              </div>
+              <span>{{post.commentCount}}</span>
+            </div>
+            <div class="post-button">
+              <div class="button-icon post-retweets">
+                <uil-repeat size="19px"/>
+              </div>
+              <span>{{post.retweetCount}}</span>
+            </div>
+            <div class="post-button">
+              <div class="button-icon post-likes">
+                <uil-heart-alt size="19px"/>
+              </div>
+              <span>{{post.likeCount}}</span>
+            </div>
+            <div class="post-button">
+              <div class="button-icon post-share">
+                <uil-upload size="19px"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</template>
+
+<script>
+import {UilComment} from '@iconscout/vue-unicons'
+import {UilRepeat} from '@iconscout/vue-unicons'
+import {UilHeartAlt} from '@iconscout/vue-unicons'
+import {UilUpload} from '@iconscout/vue-unicons'
+
+export default {
+  name: "PostCom",
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
+  components: {
+    UilComment, UilRepeat, UilHeartAlt, UilUpload
+  }
+}
+</script>
+
+<style scoped>
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.post {
+  width: 100%;
+  border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+.user-picture-container {
+  flex-basis: 48px;
+  margin-right: 12px;
+  flex-grow: 0;
+}
+
+.user-picture {
+  width: 48px;
+}
+
+article {
+  padding-inline: 16px;
+  padding-top: 12px;
+  display: flex;
+  width: 100%;
+}
+
+.post-rightside {
+  width: 100%;
+  padding-bottom: 12px;
+}
+
+.post-header {
+  display: flex;
+  gap: 1rem;
+}
+
+.post-text {
+  text-align: start;
+  color: rgb(231, 233, 234);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.post-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 425px;
+  margin-top: 12px;
+}
+
+.button-icon {
+  padding: 8px;
+  display: grid;
+  place-items: center;
+}
+
+.button-icon:hover {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.post-comments:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+  color: rgb(29, 155, 240);
+}
+.post-comments:hover + span {
+  color: rgb(29, 155, 240);
+}
+.post-retweets:hover {
+  background-color: rgba(0, 186, 124, 0.1);
+  color: rgb(0, 186, 124);
+}
+.post-retweets:hover + span {
+  color: rgb(0, 186, 124);
+}
+
+.post-likes:hover {
+  background-color: rgba(249, 24, 128, 0.1);
+  color: rgb(249, 24, 128);
+}
+
+.post-likes:hover + span {
+  color: rgb(249, 24, 128);
+}
+
+.post-share:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+  color: rgb(29, 155, 240);
+}
+
+.post-username {
+  color: rgb(231, 233, 234);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.between {
+  color: rgb(113, 118, 123);
+  font-weight: 400;
+  font-size: 20px;
+  text-align: justify;
+  line-height: 20px;
+}
+
+.post-date {
+  color: rgb(113, 118, 123);
+  font-weight: 400;
+  font-size: 15px;
+}
+
+</style>
