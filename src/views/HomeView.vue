@@ -15,7 +15,8 @@
         </div>
         <div class="user-post-container">
           <div class="input-container">
-            <input :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text" placeholder="What are you up to?">
+            <input @input="onChange" :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text"
+                   placeholder="What are you up to?">
           </div>
           <div class="post-extras">
             <div class="functions">
@@ -36,7 +37,12 @@
               </div>
             </div>
             <div class="flex">
-              <div class="charlimit" :class="postText.length > 0 ? 'visible' : ''"><span>{{maxChar - postText.length}}</span></div>
+              <div  class="progress-container" :class="postText.length > 0 ? 'visible' : ''">
+                <div ref="progressBar" class="progress">
+                  <div :class="postText.length >= (maxChar-20) ? 'visible' : ''" ref="valueContainer" class="value-container"><span>{{ maxChar - postText.length }}</span></div>
+                </div>
+
+              </div>
               <div @click="postTweet" :class="postText.length > 0 ? 'active' : ''" class="tweet-button">
                 <div><span>Tweet</span></div>
               </div>
@@ -61,43 +67,50 @@ import {UilSmile} from '@iconscout/vue-unicons'
 import {UilCalender} from '@iconscout/vue-unicons'
 import PostCom from "@/components/PostCom";
 
+
 export default {
   name: "HomeView",
-  data(){
-    return{
-      postText:'',
-      maxChar:280,
-      posts:[
+  data() {
+    return {
+      postText: '',
+      maxChar: 280,
+      posts: [
         {
-          id:1,
-          text:'Lets go first post!',
-          image:'https://www.kaas.nl/wp-content/uploads/2020/03/133035_Maasdam.png',
-          date: new Date().setHours(new Date().getHours() -5),
-          commentCount:5,
-          likeCount:3,
-          retweetCount:7
+          id: 1,
+          text: 'Lets go first post!',
+          image: 'https://www.kaas.nl/wp-content/uploads/2020/03/133035_Maasdam.png',
+          date: new Date().setHours(new Date().getHours() - 5),
+          commentCount: 5,
+          likeCount: 3,
+          retweetCount: 7
         },
         {
-          id:2,
-          text:'woep woep ez clap',
-          image:null,
-          date: new Date().setMonth(new Date().getMonth() -2),
-          commentCount:1,
-          likeCount:7,
-          retweetCount:2
+          id: 2,
+          text: 'woep woep ez clap',
+          image: null,
+          date: new Date().setMonth(new Date().getMonth() - 2),
+          commentCount: 1,
+          likeCount: 7,
+          retweetCount: 2
         }
       ]
     }
   },
-  methods:{
-    postTweet(){
-      if(this.postText.length>0 && this.postText !== " "){
-        this.posts.push({text:this.postText,date: new Date()})
+  methods: {
+    postTweet() {
+      if (this.postText.length > 0 && this.postText !== " ") {
+        this.posts.push({text: this.postText, date: new Date()})
       }
+    },
+    onChange(){
+      let progressValue = this.postText.length;
+      console.log(this.postText.length)
+      this.$refs.progressBar.style.background = `conic-gradient(rgb(29, 155, 240) ${progressValue * 1.3}deg, #2E3235 ${progressValue* 1.3}deg)`;
     }
   },
+
   components: {
-    UilScenery, UilCameraPlus, UilAnalytics, UilSmile, UilCalender,PostCom
+    UilScenery, UilCameraPlus, UilAnalytics, UilSmile, UilCalender, PostCom
   }
 }
 </script>
@@ -119,10 +132,12 @@ export default {
   backdrop-filter: blur(10px);
   width: 100%;
 }
-.active{
+
+.active {
   opacity: 1 !important;
   cursor: pointer;
 }
+
 h1 {
   color: rgb(231, 233, 234);
   font-size: 20px;
@@ -136,14 +151,44 @@ img {
   height: auto;
   border-radius: 9999px;
 }
-.flex{
+
+.flex {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.charlimit{
+
+.charlimit {
   font-size: 14px;
   visibility: hidden;
+}
+
+.progress-container {
+  position: relative;
+  visibility: hidden;
+}
+
+.progress {
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.progress:before{
+  content: '';
+  position: absolute;
+  height: 80%;
+  width: 80%;
+  background-color: black;
+  border-radius: 50%;
+}
+.value-container{
+  visibility: hidden;
+  position: relative;
+  font-size: 10px;
+  color: white;
 }
 .box {
   height: 53px;
@@ -198,9 +243,11 @@ img {
 .user-post-container {
   flex: 1;
 }
-.visible{
+
+.visible {
   visibility: visible;
 }
+
 .post-extras {
   display: flex;
   justify-content: space-between;
@@ -222,20 +269,23 @@ img {
   justify-content: center;
   border-radius: 9999px;
   margin-block: 16px;
- width: fit-content;
+  width: fit-content;
   padding-left: 16px;
   padding-right: 16px;
 }
-.tweet-button:hover{
+
+.tweet-button:hover {
   background-color: rgb(26, 140, 216);
 }
-.function{
+
+.function {
   padding: 6px;
   display: grid;
   place-items: center;
 }
-.function:hover{
-  background-color: rgba(29, 155, 240,0.1);
+
+.function:hover {
+  background-color: rgba(29, 155, 240, 0.1);
   color: rgb(29, 155, 240);
   border-radius: 50%;
   cursor: pointer;

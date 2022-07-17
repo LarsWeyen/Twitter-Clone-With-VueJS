@@ -3,7 +3,7 @@
     <div>
       <div class="logo-container">
         <router-link to="/home">
-          <UilTwitter to="/home" size="28px" class="logo"/>
+          <UilTwitter to="/home" size="50px" class="logo"/>
         </router-link>
       </div>
       <nav>
