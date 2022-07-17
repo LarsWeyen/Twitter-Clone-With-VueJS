@@ -15,7 +15,7 @@
         </div>
         <div class="user-post-container">
           <div class="input-container">
-            <input maxlength="280" v-model="postText" class="tweet-title-input" type="text" placeholder="What are you up to?">
+            <input :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text" placeholder="What are you up to?">
           </div>
           <div class="post-extras">
             <div class="functions">
@@ -35,9 +35,13 @@
                 <uil-calender size="20px"/>
               </div>
             </div>
-            <div @click="postTweet" class="tweet-button">
-              <div><span>Tweet</span></div>
+            <div class="flex">
+              <div class="charlimit" :class="postText.length > 0 ? 'visible' : ''"><span>{{maxChar - postText.length}}</span></div>
+              <div @click="postTweet" :class="postText.length > 0 ? 'active' : ''" class="tweet-button">
+                <div><span>Tweet</span></div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -62,6 +66,7 @@ export default {
   data(){
     return{
       postText:'',
+      maxChar:280,
       posts:[
         {
           id:1,
@@ -114,7 +119,10 @@ export default {
   backdrop-filter: blur(10px);
   width: 100%;
 }
-
+.active{
+  opacity: 1 !important;
+  cursor: pointer;
+}
 h1 {
   color: rgb(231, 233, 234);
   font-size: 20px;
@@ -128,7 +136,15 @@ img {
   height: auto;
   border-radius: 9999px;
 }
-
+.flex{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.charlimit{
+  font-size: 14px;
+  visibility: hidden;
+}
 .box {
   height: 53px;
 }
@@ -182,7 +198,9 @@ img {
 .user-post-container {
   flex: 1;
 }
-
+.visible{
+  visibility: visible;
+}
 .post-extras {
   display: flex;
   justify-content: space-between;
@@ -195,6 +213,7 @@ img {
   font-size: 15px;
   line-height: 20px;
   font-weight: 700;
+  opacity: 0.6;
   background-color: rgb(29, 155, 240);
   min-width: 36px;
   min-height: 36px;
@@ -209,7 +228,6 @@ img {
 }
 .tweet-button:hover{
   background-color: rgb(26, 140, 216);
-  cursor: pointer;
 }
 .function{
   padding: 6px;
