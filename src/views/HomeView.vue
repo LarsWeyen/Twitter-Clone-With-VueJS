@@ -15,7 +15,7 @@
         </div>
         <div class="user-post-container">
           <div class="input-container">
-            <input v-model="postText" class="tweet-title-input" type="text" placeholder="What are you up to?">
+            <input maxlength="280" v-model="postText" class="tweet-title-input" type="text" placeholder="What are you up to?">
           </div>
           <div class="post-extras">
             <div class="functions">
@@ -86,11 +86,10 @@ export default {
   },
   methods:{
     postTweet(){
-      this.posts.push({text:this.postText,date: new Date()})
+      if(this.postText.length>0 && this.postText !== " "){
+        this.posts.push({text:this.postText,date: new Date()})
+      }
     }
-  },
-  created() {
-console.log(new Date(1652725911255))
   },
   components: {
     UilScenery, UilCameraPlus, UilAnalytics, UilSmile, UilCalender,PostCom
