@@ -14,14 +14,20 @@
           <img src="../assets/oksCHBlQ_400x400.jpg"/>
         </div>
         <div class="user-post-container">
-          <div class="input-container">
-            <input @input="onChange" :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text"
-                   placeholder="What are you up to?">
+            <div class="input-container">
+              <input @input="onChange" :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text"
+                     placeholder="What are you up to?">
+            </div>
+          <div ref="imageContainer" class="image-container">
+
           </div>
           <div class="post-extras">
             <div class="functions">
               <div class="function">
-                <uil-scenery size="20px"/>
+                <label for="file">
+                  <uil-scenery size="20px"/>
+                </label>
+                <input type="file" id="file" @change="onFileSelected" accept="image/*">
               </div>
               <div class="function">
                 <uil-camera-plus size="20px"/>
@@ -37,9 +43,10 @@
               </div>
             </div>
             <div class="flex">
-              <div  class="progress-container" :class="postText.length > 0 ? 'visible' : ''">
+              <div class="progress-container" :class="postText.length > 0 ? 'visible' : ''">
                 <div ref="progressBar" class="progress">
-                  <div :class="postText.length >= (maxChar-20) ? 'visible' : ''" ref="valueContainer" class="value-container"><span>{{ maxChar - postText.length }}</span></div>
+                  <div :class="postText.length >= (maxChar-20) ? 'visible' : ''" ref="valueContainer"
+                       class="value-container"><span>{{ maxChar - postText.length }}</span></div>
                 </div>
 
               </div>
@@ -66,6 +73,7 @@ import {UilAnalytics} from '@iconscout/vue-unicons'
 import {UilSmile} from '@iconscout/vue-unicons'
 import {UilCalender} from '@iconscout/vue-unicons'
 import PostCom from "@/components/PostCom";
+import {h} from "vue";
 
 
 export default {
@@ -74,6 +82,7 @@ export default {
     return {
       postText: '',
       maxChar: 280,
+      selectedFile: null,
       posts: [
         {
           id: 1,
@@ -99,13 +108,63 @@ export default {
   methods: {
     postTweet() {
       if (this.postText.length > 0 && this.postText !== " ") {
-        this.posts.push({text: this.postText, date: new Date()})
+        this.posts.unshift({text: this.postText, date: new Date(), image: this.selectedFile})
+        this.selectedFile = null;
+        while (this.$refs.imageContainer.firstChild) {
+          this.$refs.imageContainer.removeChild(this.$refs.imageContainer.lastChild);
+        }
+        this.postText = '';
       }
     },
-    onChange(){
+    onChange() {
       let progressValue = this.postText.length;
-      console.log(this.postText.length)
-      this.$refs.progressBar.style.background = `conic-gradient(rgb(29, 155, 240) ${progressValue * 1.3}deg, #2E3235 ${progressValue* 1.3}deg)`;
+      this.$refs.progressBar.style.background = `conic-gradient(rgb(29, 155, 240) ${progressValue * 1.3}deg, #2E3235 ${progressValue * 1.3}deg)`;
+    },
+    onFileSelected(event) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        this.selectedFile = reader.result;
+        let img = new Image()
+        img.src = this.selectedFile
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = '1rem';
+
+        let removeButton = document.createElement('div')
+        removeButton.style.top = '4px';
+        removeButton.style.left = '4px';
+        removeButton.style.minHeight = '32px';
+        removeButton.style.minWidth = '32px';
+        removeButton.style.borderRadius = '50%';
+        removeButton.style.position = 'absolute';
+        removeButton.style.width = 'fit-content';
+        removeButton.style.backgroundColor = 'rgba(0, 0, 0,.7)';
+        removeButton.style.color = 'rgb(255, 255, 255)';
+        removeButton.style.display = 'grid';
+        removeButton.style.placeItems = 'center';
+        removeButton.style.cursor = 'pointer';
+        removeButton.classList.add('remove-button')
+
+        removeButton.addEventListener('click', () => {
+          while (this.$refs.imageContainer.firstChild) {
+            this.$refs.imageContainer.removeChild(this.$refs.imageContainer.lastChild);
+          }
+        })
+        let span = document.createElement('span')
+        span.style.fontSize = '15px'
+        span.innerText = 'X';
+
+        removeButton.appendChild(span)
+        while (this.$refs.imageContainer.firstChild) {
+          this.$refs.imageContainer.removeChild(this.$refs.imageContainer.lastChild);
+        }
+        this.$refs.imageContainer.appendChild(img)
+        this.$refs.imageContainer.appendChild(removeButton)
+
+      })
+      reader.readAsDataURL(event.target.files[0])
+
     }
   },
 
@@ -158,6 +217,24 @@ img {
   gap: 1rem;
 }
 
+.added-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  height: 20px;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
 .charlimit {
   font-size: 14px;
   visibility: hidden;
@@ -176,7 +253,8 @@ img {
   display: grid;
   place-items: center;
 }
-.progress:before{
+
+.progress:before {
   content: '';
   position: absolute;
   height: 80%;
@@ -184,12 +262,26 @@ img {
   background-color: black;
   border-radius: 50%;
 }
-.value-container{
+
+.remove-button {
+  top: 4px;
+  left: 4px;
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  position: absolute;
+  width: fit-content;
+  background-color: red;
+  color: red;
+}
+
+.value-container {
   visibility: hidden;
   position: relative;
   font-size: 10px;
   color: white;
 }
+
 .box {
   height: 53px;
 }
@@ -238,6 +330,11 @@ img {
   width: 500px;
   height: 28px;
   font-size: 20px;
+}
+
+.image-container {
+  width: 100%;
+  position: relative;
 }
 
 .user-post-container {

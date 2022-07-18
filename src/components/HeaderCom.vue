@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <nav>
-        <router-link to="/home" class="nav-button">
+        <router-link to="/home" :class="$route.name === 'home' ? 'selected' : ''" class="nav-button">
           <div class="nav-icon">
             <uil-estate size="25px"/>
           </div>

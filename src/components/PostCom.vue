@@ -23,7 +23,7 @@
             <span>{{ post.text }}</span>
           </div>
           <div class="post-image">
-            <img v-if="post.image" :src="post.image" alt="">
+            <img class="postImage" v-if="post.image" :src="post.image" alt="">
           </div>
           <div class="post-buttons">
             <div class="post-button">
@@ -111,6 +111,9 @@ img {
   width: 100%;
   border-bottom: 1px solid rgb(47, 51, 54);
 }
+.post:hover{
+  background-color: rgba(255,255,255,0.03);
+}
 
 .user-picture-container {
   flex-basis: 48px;
@@ -146,7 +149,15 @@ article {
   font-weight: 400;
   line-height: 20px;
 }
-
+.post-image{
+  margin-top: 12px;
+}
+.postImage{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 1rem !important;
+}
 .post-button {
   display: flex;
   align-items: center;
