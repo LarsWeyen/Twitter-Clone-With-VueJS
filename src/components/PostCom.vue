@@ -20,10 +20,10 @@
         </div>
         <div class="post-sub">
           <div class="post-text">
-            <span>{{ post.text }}</span>
+            <span>{{ post.Title }}</span>
           </div>
           <div class="post-image">
-            <img class="postImage" v-if="post.image" :src="post.image" alt="">
+            <img class="postImage" v-if="post.Image" :src="post.Image" alt="">
           </div>
           <div class="post-buttons">
             <div class="post-button">
@@ -69,14 +69,14 @@ export default {
   },
   computed: {
     postedTime() {
-      let seconds = Math.floor((new Date() - new Date(this.post.date)) / 1000);
+      let seconds = Math.floor((new Date() - new Date(this.post.Date)) / 1000);
       let interval = seconds / 31536000;
       if (interval > 1) {
-        return new Date(this.post.date).toString().split(' ').slice(1, 4).join(' ');
+        return new Date(this.post.Date).toString().split(' ').slice(1, 4).join(' ');
       }
       interval = seconds / 2592000;
       if (interval > 1) {
-        return new Date(this.post.date).toString().split(' ').slice(1, 4).join('-');
+        return new Date(this.post.Date).toString().split(' ').slice(1, 4).join('-');
       }
       interval = seconds / 86400;
       if (interval > 1) {
@@ -113,6 +113,7 @@ img {
 }
 .post:hover{
   background-color: rgba(255,255,255,0.03);
+  cursor: pointer;
 }
 
 .user-picture-container {
@@ -233,5 +234,6 @@ article {
   font-weight: 400;
   font-size: 15px;
 }
+
 
 </style>

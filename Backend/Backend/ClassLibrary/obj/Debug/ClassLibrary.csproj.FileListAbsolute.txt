@@ -1,0 +1,9 @@
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.csproj.AssemblyReference.cache
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.csproj.CoreCompileInputs.cache
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\ClassLibrary.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\ClassLibrary.pdb
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.pdb
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\System.Data.SqlClient.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\System.Data.SqlClient.xml
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.csproj.CopyComplete

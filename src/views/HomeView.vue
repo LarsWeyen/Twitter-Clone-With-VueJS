@@ -14,10 +14,10 @@
           <img src="../assets/oksCHBlQ_400x400.jpg"/>
         </div>
         <div class="user-post-container">
-            <div class="input-container">
-              <input @input="onChange" :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text"
-                     placeholder="What are you up to?">
-            </div>
+          <div class="input-container">
+            <input @input="onChange" :maxlength="maxChar" v-model="postText" class="tweet-title-input" type="text"
+                   placeholder="What are you up to?">
+          </div>
           <div ref="imageContainer" class="image-container">
 
           </div>
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <post-com v-for="post in posts" :post="post"/>
+      <post-com v-for="post in posts" :post="post" :key="post.PostID"/>
     </div>
     <div class="side-bar">
 
@@ -73,7 +73,7 @@ import {UilAnalytics} from '@iconscout/vue-unicons'
 import {UilSmile} from '@iconscout/vue-unicons'
 import {UilCalender} from '@iconscout/vue-unicons'
 import PostCom from "@/components/PostCom";
-import {h} from "vue";
+import axios from 'axios'
 
 
 export default {
@@ -83,32 +83,29 @@ export default {
       postText: '',
       maxChar: 280,
       selectedFile: null,
-      posts: [
-        {
-          id: 1,
-          text: 'Lets go first post!',
-          image: 'https://www.kaas.nl/wp-content/uploads/2020/03/133035_Maasdam.png',
-          date: new Date().setHours(new Date().getHours() - 5),
-          commentCount: 5,
-          likeCount: 3,
-          retweetCount: 7
-        },
-        {
-          id: 2,
-          text: 'woep woep ez clap',
-          image: null,
-          date: new Date().setMonth(new Date().getMonth() - 2),
-          commentCount: 1,
-          likeCount: 7,
-          retweetCount: 2
-        }
-      ]
+      posts: []
+    }
+  },
+   created() {
+    this.getTweets()
+  },
+  watch:{
+    posts(){
+      this.getTweets()
     }
   },
   methods: {
+    async getTweets(){
+      const res = await axios.get('https://localhost:44366/api/Posts')
+      this.posts = res.data
+    },
     postTweet() {
       if (this.postText.length > 0 && this.postText !== " ") {
-        this.posts.unshift({text: this.postText, date: new Date(), image: this.selectedFile})
+        axios.post('https://localhost:44366/api/Posts', {
+          title: this.postText,
+          date: new Date(),
+          image: this.selectedFile
+        })
         this.selectedFile = null;
         while (this.$refs.imageContainer.firstChild) {
           this.$refs.imageContainer.removeChild(this.$refs.imageContainer.lastChild);

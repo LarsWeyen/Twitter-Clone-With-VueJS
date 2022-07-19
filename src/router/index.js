@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import HomeView from "@/views/HomeView";
-
+import ShowPost from "@/views/ShowPost";
 
 const routes = [
   {
@@ -15,6 +15,12 @@ const routes = [
   {
     name:'explore',
     path: '/explore'
+  },
+  {
+    path: '/:username/:id',
+    name: 'ShowPost',
+    component: ShowPost,
+    props:true,
   }
 ]
 
