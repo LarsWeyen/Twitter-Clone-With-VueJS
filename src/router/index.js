@@ -11,12 +11,18 @@ const routes = [
     name:'home',
     path: '/home',
     component:HomeView
+  },
+  {
+    name:'explore',
+    path: '/explore'
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  linkExactActiveClass: 'exact-active-link',
+  linkActiveClass:'exact-active-link'
 })
 
 export default router

@@ -41,4 +41,9 @@ body {
 .header{
   width: 241px;
 }
+.exact-active-link span{
+  color: rgb(231, 233, 234);
+  font-size: 20px;
+  font-weight: 700;
+}
 </style>
