@@ -10,7 +10,8 @@ const routes = [
   {
     name:'home',
     path: '/home',
-    component:HomeView
+    component:HomeView,
+    props: true
   },
   {
     name:'explore',

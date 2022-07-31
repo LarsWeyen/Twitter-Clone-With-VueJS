@@ -3,13 +3,16 @@
     <article>
       <div class="user-picture-container">
         <div class="user-picture">
-          <img src="../assets/oksCHBlQ_400x400.jpg"/>
+          <img :src="profilePicture"/>
         </div>
       </div>
       <div class="post-rightside">
         <div class="post-header">
           <div class="post-username">
-            <span>Username</span>
+            <span>{{ username }}</span>
+          </div>
+          <div class="post-name">
+            <span>@{{ name }}</span>
           </div>
           <div class="between">
             <span>·</span>
@@ -58,14 +61,36 @@
 
 <script>
 import {UilComment, UilHeartAlt, UilRepeat, UilUpload} from '@iconscout/vue-unicons'
+import axios from "axios";
 
 export default {
   name: "PostCom",
+  data() {
+    return {
+      username: null,
+      profilePicture: null,
+      name: null
+    }
+  },
   props: {
     post: {
       type: Object,
       required: true
     }
+  },
+  created() {
+    this.getUser()
+  },
+  methods: {
+    async getUser() {
+      const payload = {
+        UserID: this.post.UserID
+      }
+      const res = await axios.post('https://localhost:44366/api/GetAccount', payload)
+      this.username = res.data[0].Username;
+      this.profilePicture = res.data[0].ProfilePicture;
+      this.name = res.data[0].Name;
+    },
   },
   computed: {
     postedTime() {
@@ -111,8 +136,9 @@ img {
   width: 100%;
   border-bottom: 1px solid rgb(47, 51, 54);
 }
-.post:hover{
-  background-color: rgba(255,255,255,0.03);
+
+.post:hover {
+  background-color: rgba(255, 255, 255, 0.03);
   cursor: pointer;
 }
 
@@ -125,7 +151,9 @@ img {
 .user-picture {
   width: 48px;
 }
-
+.user-picture img{
+  aspect-ratio: 1/1;
+}
 article {
   padding-inline: 16px;
   padding-top: 12px;
@@ -150,15 +178,23 @@ article {
   font-weight: 400;
   line-height: 20px;
 }
-.post-image{
+.post-name{
+  color: rgb(113, 118, 123);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.post-image {
   margin-top: 12px;
 }
-.postImage{
+
+.postImage {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 1rem !important;
 }
+
 .post-button {
   display: flex;
   align-items: center;

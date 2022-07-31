@@ -7,3 +7,7 @@ F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\System.Data.SqlClient.dll
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\System.Data.SqlClient.xml
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\obj\Debug\ClassLibrary.csproj.CopyComplete
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\NETCore.Encrypt.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\Newtonsoft.Json.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\Newtonsoft.Json.xml
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\ClassLibrary\bin\Debug\ClassLibrary.dll.config

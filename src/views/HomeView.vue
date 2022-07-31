@@ -11,7 +11,7 @@
       </div>
       <div class="user-post">
         <div class="user-picture">
-          <img src="../assets/oksCHBlQ_400x400.jpg"/>
+          <img v-if="user" :src="user.ProfilePicture"/>
         </div>
         <div class="user-post-container">
           <div class="input-container">
@@ -83,11 +83,15 @@ export default {
       postText: '',
       maxChar: 280,
       selectedFile: null,
-      posts: []
+      posts: [],
     }
+  },
+  props:{
+    user:Object
   },
    created() {
     this.getTweets()
+
   },
   watch:{
     posts(){
@@ -102,6 +106,7 @@ export default {
     postTweet() {
       if (this.postText.length > 0 && this.postText !== " ") {
         axios.post('https://localhost:44366/api/Posts', {
+          userID: this.user.UserID,
           title: this.postText,
           date: new Date(),
           image: this.selectedFile
@@ -183,10 +188,12 @@ export default {
 }
 
 .page-title {
+  max-width: 598px;
   position: fixed;
   height: 53px;
   backdrop-filter: blur(10px);
   width: 100%;
+  top: 0;
 }
 
 .active {
@@ -307,7 +314,9 @@ label:hover {
   width: 48px;
   padding-top: 4px;
 }
-
+.user-picture img{
+  aspect-ratio: 1/1;
+}
 .input-container {
   width: 100%;
   padding: 12px;

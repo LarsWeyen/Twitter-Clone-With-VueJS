@@ -172,6 +172,18 @@
           }
         }
       },
+      "NETCore.Encrypt/2.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/NETCore.Encrypt.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NETCore.Encrypt.dll": {}
+        }
+      },
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
@@ -540,6 +552,18 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.xml",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "NETCore.Encrypt/2.0.8": {
+      "sha512": "Z4iKzGFNG5kWgn/jbvm6AJs8iPa/Ke6S8YQUJHF9vb5W4EXixBREz4/0v4t6H9Pr7G+n7MCOKUWvKlAJJrabsw==",
+      "type": "package",
+      "path": "netcore.encrypt/2.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NETCore.Encrypt.dll",
+        "netcore.encrypt.2.0.8.nupkg.sha512",
+        "netcore.encrypt.nuspec"
       ]
     },
     "Newtonsoft.Json/13.0.1": {
@@ -1015,6 +1039,7 @@
     ".NETCoreApp,Version=v3.1": [
       "ClassLibrary >= 1.0.0",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
+      "NETCore.Encrypt >= 2.0.8",
       "Newtonsoft.Json >= 13.0.1",
       "System.Data.SqlClient >= 4.8.3"
     ]
@@ -1065,6 +1090,10 @@
           "Microsoft.AspNetCore.Cors": {
             "target": "Package",
             "version": "[2.2.0, )"
+          },
+          "NETCore.Encrypt": {
+            "target": "Package",
+            "version": "[2.0.8, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

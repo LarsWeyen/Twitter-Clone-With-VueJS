@@ -27,3 +27,5 @@ F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\WebApplication\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\WebApplication\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\WebApplication\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\WebApplication\bin\Debug\netcoreapp3.1\NETCore.Encrypt.dll
+F:\Webstorm\WebStorm 2021.2.2\Projects\Twitter-Clone-With-VueJS\Backend\Backend\WebApplication\bin\Debug\netcoreapp3.1\ClassLibrary.dll.config

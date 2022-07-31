@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Je/mPa/24pt91CpAOzeFghzT2OAyMBSg4M4vHKt4t95IJ09PZweaQfXvI1JhLjha9/iZz+0HzCiyXjDA9/stug==",
+  "dgSpecHash": "wM7s4YtkJIMd5aNEse5rAR+VbO/4MzjGx0vhhujeb3yb58lBnAxILmq7ez89JhqI6ic+hiY0FcXvHKPkK28arA==",
   "success": true,
   "projectFilePath": "F:\\Webstorm\\WebStorm 2021.2.2\\Projects\\Twitter-Clone-With-VueJS\\Backend\\Backend\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\Lars\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\Lars\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Lars\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Lars\\.nuget\\packages\\netcore.encrypt\\2.0.8\\netcore.encrypt.2.0.8.nupkg.sha512",
     "C:\\Users\\Lars\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Lars\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Lars\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

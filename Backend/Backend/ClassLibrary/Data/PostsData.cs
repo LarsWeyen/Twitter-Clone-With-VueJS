@@ -30,8 +30,8 @@ namespace ClassLibrary.Data
                 using (SqlCommand insertCommand = new SqlCommand(insertQuery.ToString()))
                 {
                     insertCommand.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar).Value = post.UserID;
-                    insertCommand.Parameters.Add("@Title", System.Data.SqlDbType.VarChar).Value = post.Title;
-                    insertCommand.Parameters.Add("@Image", System.Data.SqlDbType.VarChar).Value = post.Image;
+                    insertCommand.Parameters.Add("@Title", System.Data.SqlDbType.VarChar).Value = post.Title;                 
+                    insertCommand.Parameters.Add("@Image", System.Data.SqlDbType.VarChar).Value = !string.IsNullOrEmpty(post.Image) ? post.Image : (object)DBNull.Value; 
                     insertCommand.Parameters.Add("@Date", System.Data.SqlDbType.VarChar).Value = post.Date;                 
                     result = InsertRecord(insertCommand);
                 }

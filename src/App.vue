@@ -1,10 +1,9 @@
 <template>
   <div v-if="isLoggedIn" class="logged-in-container">
     <div class="header">
-      <header-com/>
+      <header-com :user="user"/>
     </div>
-
-    <router-view/>
+    <router-view :user="user"/>
   </div>
   <div v-else class="start-screen">
     <main>
@@ -20,7 +19,21 @@
           <div class="sub-title">
             <span>Join Twitter today</span>
           </div>
-          <div class="buttons-container">
+          <div class="register-container" v-if="isRegistering">
+            <h4>Email</h4>
+            <input v-model="email" type="email" id="email">
+            <h4>@Account name</h4>
+            <input v-model="username" type="text" id="username">
+            <h4>What should people call you?</h4>
+            <input v-model="name" type="text" id="name">
+            <h4>Password</h4>
+            <input v-model="password" type="password" id="password">
+            <h4>Confirm password</h4>
+            <input v-model="confirmpwd" type="password" id="confirm-pwd">
+            <button @click="Register">Register</button>
+            <button @click="isRegistering=false">Back</button>
+          </div>
+          <div v-else class="buttons-container">
             <div class="google-register-button">
               <div class="google-register">
                 <div class="google-logo-container"><img :src="require('@/assets/1534129544.png')" class="google-logo"
@@ -49,7 +62,7 @@
                 </div>
               </div>
             </div>
-            <div class="register-button">
+            <div class="register-button" @click="isRegistering = true">
               <div class="button">
                 <span>Register with a phone number or email address</span>
               </div>
@@ -93,12 +106,59 @@
 <script>
 import HeaderCom from "@/components/HeaderCom";
 import {UilTwitter} from '@iconscout/vue-unicons'
+import axios from "axios";
 
 export default {
   name: "app",
   data() {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      isRegistering: false,
+      email: null,
+      name: null,
+      username: null,
+      password: null,
+      confirmpwd: null,
+      user:null
+    }
+  },
+  created() {
+    this.isLoggedIn = !!localStorage.getItem('Username');
+    if (this.isLoggedIn){
+      this.getUser()
+    }
+  },
+  methods: {
+    async getUser(){
+      const payload = {
+        Username: localStorage.getItem('Username'),
+        UserID:0
+      }
+      const res = await axios.post('https://localhost:44366/api/GetAccount',payload)
+      this.user = res.data[0]
+    },
+    Register() {
+      const AccountDetails = {
+        Username: this.username,
+        Name:this.name,
+        Email:this.email,
+        Password:this.password,
+      }
+      axios.post('https://localhost:44366/api/AccountCreate',AccountDetails)
+      .then(response =>{
+        if (response.data !== "Email is used!"){
+          if (response.data !== "Username is used!"){
+              this.isLoggedIn = true
+            localStorage.setItem('Username',response.data[0].Username)
+            this.getUser()
+          }
+          else{
+            alert('Username is used!')
+          }
+        }else{
+          alert('email is used!')
+        }
+      })
     }
   },
   components: {HeaderCom, UilTwitter}
@@ -194,7 +254,7 @@ main {
   min-width: 437px;
   max-width: 760px;
   width: 100%;
-  padding: 20px;
+  padding-inline: 20px;
   color: rgb(255, 255, 255);;
 }
 
@@ -235,50 +295,59 @@ main {
   justify-content: center;
 }
 
-.google-logo-container{
+.google-logo-container {
   width: 20px;
   height: 20px;
   margin-right: 4px;
   color: rgb(15, 20, 25);
 }
-.apple-logo-container{
+
+.apple-logo-container {
   width: 15px;
   margin-right: 4px;
   color: rgb(15, 20, 25);
 }
-.google-register,.apple-register {
+
+.google-register, .apple-register, .register-button {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
-.google-register,.apple-register span{
+
+.google-register, .apple-register span {
   color: rgb(15, 20, 25);
   font-size: 15px;
   line-height: 20px;
   font-weight: 700;
 }
-.line-break-container{
+
+.line-break-container {
   width: 300px;
   max-width: 380px;
   margin-bottom: 4px;
   margin-top: 4px;
 }
-.line-break{
+
+.line-break {
   display: flex;
   flex-direction: row;
   margin: 4px -4px;
   align-items: center;
 }
-.line-container{
+
+.line-container {
   margin-left: 4px;
   margin-right: 4px;
-  flex:1;
+  flex: 1;
 }
-.line{
+
+.line {
   background-color: rgb(47, 51, 54);
   height: 1px;
 }
-.register-button{
+
+.register-button {
   background-color: rgb(29, 155, 240);
   border: rgba(0, 0, 0, 0) solid 1px;
   border-radius: 9999px;
@@ -294,13 +363,15 @@ main {
   display: flex;
   align-items: center;
 }
-.button{
+
+.button {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.conditions{
+
+.conditions {
   color: rgb(113, 118, 123);
   line-height: 12px;
   font-size: 11px;
@@ -310,10 +381,12 @@ main {
   margin-bottom: 20px;
   text-align: start;
 }
-.login-container{
+
+.login-container {
   margin-top: 40px;
 }
-.login-text{
+
+.login-text {
   color: rgb(231, 233, 234);
   font-size: 17px;
   max-width: 380px;
@@ -322,7 +395,8 @@ main {
   line-height: 20px;
   text-align: start;
 }
-.login-button{
+
+.login-button {
   border: rgb(83, 100, 113) solid 1px;
   border-radius: 9999px;
   width: 300px;
@@ -339,6 +413,7 @@ main {
   align-items: center;
   justify-content: center;
 }
+
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -362,5 +437,12 @@ footer span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  max-width: 370px;
 }
 </style>

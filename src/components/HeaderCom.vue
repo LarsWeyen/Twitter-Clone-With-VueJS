@@ -72,11 +72,11 @@
     </div>
     <div class="user-container">
       <div class="profile-picture">
-        <img src="../assets/oksCHBlQ_400x400.jpg"/>
+        <img v-if="user" :src="user.ProfilePicture"/>
       </div>
       <div class="usernames">
-        <span class="username">Kaas</span>
-        <span class="second-username">@kaas</span>
+        <span v-if="user" class="username">{{ user.Name }}</span>
+        <span v-if="user" class="second-username">@{{ user.Username }}</span>
       </div>
       <div class="dots">
         <span>...</span>
@@ -98,6 +98,9 @@ export default {
   name: "HeaderCom",
   components: {
     UilTwitter, UilEstate, UilBell, UilEnvelope, UilBookmark, UilClipboardNotes, UilUser
+  },
+  props:{
+    user:Object
   }
 }
 </script>
@@ -139,7 +142,9 @@ img {
   border-radius: 50%;
   cursor: pointer;
 }
-
+.profile-picture img{
+  aspect-ratio: 1/1;
+}
 .nav-icon {
   color: rgb(231, 233, 234);
 }

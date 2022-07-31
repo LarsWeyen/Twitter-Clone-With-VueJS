@@ -32,12 +32,9 @@ namespace ClassLibrary.Business
         {
             var result = new InsertResult();
             try
-            {
-                //Business.Students
-                //Data.StudentsData.Insert
-                //Frmwrk.SqlCommands.InsertRecord
-                var gamesData = new PostsData();
-                gamesData.Insert(post);
+            {             
+                var postsData = new PostsData();
+                postsData.Insert(post);
             }
             catch (Exception)
             {
