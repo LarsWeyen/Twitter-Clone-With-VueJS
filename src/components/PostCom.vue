@@ -1,13 +1,13 @@
 <template>
-  <div class="post">
-    <article>
-      <div class="user-picture-container">
+  <div class="post" >
+    <article @click.self="goToPost">
+      <div class="user-picture-container" @click.self="goToPost">
         <div class="user-picture">
           <img :src="profilePicture"/>
         </div>
       </div>
-      <div class="post-rightside">
-        <div class="post-header">
+      <div class="post-rightside" >
+        <div class="post-header" @click.self="goToPost">
           <div class="post-username">
             <span>{{ username }}</span>
           </div>
@@ -21,14 +21,14 @@
             <span>{{ postedTime }}</span>
           </div>
         </div>
-        <div class="post-sub">
+        <div class="post-sub" @click.self="goToPost">
           <div class="post-text">
             <span>{{ post.Title }}</span>
           </div>
           <div class="post-image">
             <img class="postImage" v-if="post.Image" :src="post.Image" alt="">
           </div>
-          <div class="post-buttons">
+          <div class="post-buttons" @click.self="goToPost">
             <div class="post-button">
               <div class="button-icon post-comments">
                 <uil-comment size="19px"/>
@@ -82,9 +82,13 @@ export default {
     this.getUser()
   },
   methods: {
+    goToPost(){
+      this.$router.push({name:'ShowPost',params:{username:this.post.Username,id:this.post.PostID}})
+    },
     async getUser() {
       const payload = {
-        UserID: this.post.UserID
+        UserID: 0,
+        Username:this.post.Username
       }
       const res = await axios.post('https://localhost:44366/api/GetAccount', payload)
       this.username = res.data[0].Username;

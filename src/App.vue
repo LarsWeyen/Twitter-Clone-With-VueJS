@@ -33,7 +33,15 @@
             <button @click="Register">Register</button>
             <button @click="isRegistering=false">Back</button>
           </div>
-          <div v-else class="buttons-container">
+          <div class="login-container" v-if="isLoggingIn">
+            <h4>Email</h4>
+            <input v-model="loginEmail" type="text">
+            <h4>Password</h4>
+            <input v-model="loginPwd" type="password">
+            <button @click="Login">Login</button>
+            <button @click="isLoggingIn= false">Back</button>
+          </div>
+          <div v-if="isLoggingIn==false && isRegistering==false" class="buttons-container">
             <div class="google-register-button">
               <div class="google-register">
                 <div class="google-logo-container"><img :src="require('@/assets/1534129544.png')" class="google-logo"
@@ -62,7 +70,7 @@
                 </div>
               </div>
             </div>
-            <div class="register-button" @click="isRegistering = true">
+            <div class="register-button" @click="isRegistering = true; isLoggingIn= false">
               <div class="button">
                 <span>Register with a phone number or email address</span>
               </div>
@@ -72,7 +80,7 @@
             </div>
             <div class="login-container">
               <div class="login-text"><span>Do you already have an account?</span></div>
-              <div class="login-button">
+              <div class="login-button" @click="isLoggingIn = true; isRegistering= false">
                 <span>Login</span>
               </div>
             </div>
@@ -119,46 +127,60 @@ export default {
       username: null,
       password: null,
       confirmpwd: null,
-      user:null
+      user: null,
+      isLoggingIn: false,
+      loginEmail: null,
+      loginPwd: null
     }
   },
   created() {
     this.isLoggedIn = !!localStorage.getItem('Username');
-    if (this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.getUser()
     }
   },
   methods: {
-    async getUser(){
+    async getUser() {
       const payload = {
         Username: localStorage.getItem('Username'),
-        UserID:0
+        UserID: 0
       }
-      const res = await axios.post('https://localhost:44366/api/GetAccount',payload)
+      const res = await axios.post('https://localhost:44366/api/GetAccount', payload)
       this.user = res.data[0]
     },
     Register() {
       const AccountDetails = {
         Username: this.username,
-        Name:this.name,
-        Email:this.email,
-        Password:this.password,
+        Name: this.name,
+        Email: this.email,
+        Password: this.password,
       }
-      axios.post('https://localhost:44366/api/AccountCreate',AccountDetails)
-      .then(response =>{
-        if (response.data !== "Email is used!"){
-          if (response.data !== "Username is used!"){
-              this.isLoggedIn = true
-            localStorage.setItem('Username',response.data[0].Username)
+      axios.post('https://localhost:44366/api/AccountCreate', AccountDetails)
+          .then(response => {
+            if (response.data !== "Email is used!") {
+              if (response.data !== "Username is used!") {
+                this.isLoggedIn = true
+                localStorage.setItem('Username', response.data[0].Username)
+                this.getUser()
+              } else {
+                alert('Username is used!')
+              }
+            } else {
+              alert('email is used!')
+            }
+          })
+    },
+    Login() {
+      const details = {
+        Email: this.loginEmail,
+        Password: this.loginPwd
+      }
+      axios.post('https://localhost:44366/api/AccountLogin', details)
+          .then(response => {
+            localStorage.setItem('Username', response.data.Username)
+            this.isLoggedIn = true;
             this.getUser()
-          }
-          else{
-            alert('Username is used!')
-          }
-        }else{
-          alert('email is used!')
-        }
-      })
+          })
     }
   },
   components: {HeaderCom, UilTwitter}

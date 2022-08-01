@@ -86,27 +86,27 @@ export default {
       posts: [],
     }
   },
-  props:{
-    user:Object
+  props: {
+    user: Object
   },
-   created() {
+  created() {
     this.getTweets()
 
   },
-  watch:{
-    posts(){
+  watch: {
+    posts() {
       this.getTweets()
     }
   },
   methods: {
-    async getTweets(){
+    async getTweets() {
       const res = await axios.get('https://localhost:44366/api/Posts')
       this.posts = res.data
     },
     postTweet() {
       if (this.postText.length > 0 && this.postText !== " ") {
         axios.post('https://localhost:44366/api/Posts', {
-          userID: this.user.UserID,
+          Username: this.user.Username,
           title: this.postText,
           date: new Date(),
           image: this.selectedFile
@@ -167,9 +167,13 @@ export default {
       })
       reader.readAsDataURL(event.target.files[0])
 
+    },
+    async getUsername(id) {
+      return await axios.post('https://localhost:44366/api/GetAccount', {UserID: id}).then(response => response.data[0].Username)
     }
-  },
 
+  },
+  computed: {},
   components: {
     UilScenery, UilCameraPlus, UilAnalytics, UilSmile, UilCalender, PostCom
   }
@@ -314,9 +318,11 @@ label:hover {
   width: 48px;
   padding-top: 4px;
 }
-.user-picture img{
+
+.user-picture img {
   aspect-ratio: 1/1;
 }
+
 .input-container {
   width: 100%;
   padding: 12px;
